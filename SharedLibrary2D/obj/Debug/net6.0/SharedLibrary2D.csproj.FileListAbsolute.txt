@@ -1,0 +1,12 @@
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\bin\Debug\net6.0\SharedLibrary2D.deps.json
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\bin\Debug\net6.0\SharedLibrary2D.dll
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\bin\Debug\net6.0\SharedLibrary2D.pdb
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.csproj.AssemblyReference.cache
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.AssemblyInfoInputs.cache
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.AssemblyInfo.cs
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.csproj.CoreCompileInputs.cache
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.dll
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\refint\SharedLibrary2D.dll
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\SharedLibrary2D.pdb
+C:\Users\steve\source\repos\SharedLibrary2D\SharedLibrary2D\obj\Debug\net6.0\ref\SharedLibrary2D.dll
