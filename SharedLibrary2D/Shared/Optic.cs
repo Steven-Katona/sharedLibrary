@@ -11,7 +11,7 @@ namespace SharedLibrary2D
         bool suprise { get; set; }
         bool is_dead { get; set; }
         float rotate { get; set; }
-  
+
         Rectangle drawnRectangle;
         Point myLocation;
         public Hitbox myAABB { get; set; }
@@ -25,7 +25,7 @@ namespace SharedLibrary2D
             animator = new AnimationLogic();
             animator.animationPlay(myVisual);
             this.is_dead = false;
-            drawnRectangle = new ((int)getPosition().X, (int)getPosition().Y, 32, 32);   
+            drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, 32, 32);
         }
 
         public Point getPosition()
@@ -41,9 +41,9 @@ namespace SharedLibrary2D
         public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch)
         {
 
-            if (myVisual.myAnimation != null) 
+            if (myVisual.myAnimation != null)
             {
-                animator.Draw(_gameTime, _spriteBatch, new(getPosition().X,getPosition().Y), drawnRectangle, new Vector2(myVisual.myHeight/2, myVisual.myHeight/2), rotate, SpriteEffects.None);
+                animator.Draw(_gameTime, _spriteBatch, new(getPosition().X, getPosition().Y), drawnRectangle, new Vector2(myVisual.myHeight / 2, myVisual.myHeight / 2), rotate, SpriteEffects.None);
             }
             else
             {
@@ -51,24 +51,26 @@ namespace SharedLibrary2D
             }
         }
 
-        public void setAnimationPosition(int newX, int newY)
-        {
-            myLocation.X = newX;
-            myLocation.Y = newY;
-        }
-
         public Point getVector()
-        { 
-            return myLocation; 
-        }
-
-
-        static public double CalculateDiagonalMovement(double the_move)
         {
-            double amount = the_move / 2;
-            amount = Math.Sqrt(amount);
-            return amount;
+            return myLocation;
         }
+
+        public static Optic operator +(Optic myOpticPosition, (int, int) newPosition) 
+        {
+            myOpticPosition.myLocation.X += newPosition.Item1;
+            myOpticPosition.myLocation.Y += newPosition.Item2;
+            myOpticPosition.myAABB.getBounds().X += newPosition.Item1;
+            myOpticPosition.myAABB.getBounds().Y += newPosition.Item2;
+
+            return myOpticPosition;
+        
+        }
+        
+        
+        
+        
+        
 
         
     }
