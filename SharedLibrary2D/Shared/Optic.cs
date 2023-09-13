@@ -17,11 +17,12 @@ namespace SharedLibrary2D
         public Hitbox myAABB { get; set; }
         AnimationLogic animator;
         public bool draw_me = true;
-        public Optic(Animation visual, Hitbox aabb, Point myLocation)
+        public Optic(Animation visual, Point myLocation)
         {
             myVisual = visual;
             this.myLocation = myLocation;
-            myAABB = aabb;
+
+            myAABB = new(myLocation.X,myLocation.Y,visual.myWidth,visual.myHeight, new(-visual.myWidth/2,-visual.myHeight/2));
             animator = new AnimationLogic();
             animator.animationPlay(myVisual);
             this.is_dead = false;

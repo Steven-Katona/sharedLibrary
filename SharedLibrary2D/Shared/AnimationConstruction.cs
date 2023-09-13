@@ -15,8 +15,6 @@ namespace SharedLibrary2D
     {
         static string folder;
         static readonly string AnimationColor = "{R:217 G:87 B:99 A:255}";
-        static readonly string HitboxColor = "{R:17 G:10 B:9 A:255}";
-        static Dictionary<string, (int, int, Point)> getHitbox;
         static Dictionary<string, Animation> getTextureArray;
 
         public static void setFolder(string newFolder)
@@ -25,7 +23,6 @@ namespace SharedLibrary2D
         }
         static public void Initilize()
         {
-            getHitbox = new Dictionary<string, (int, int,Point)> { };
             getTextureArray = new Dictionary<string, Animation> { };
         }
 
@@ -65,8 +62,7 @@ namespace SharedLibrary2D
                     if (color[loop_x].ToString().Equals(AnimationColor))
                     {
                         newWidth = loop_x + 1;
-                        color[loop_x] = new Color(0,0,0);
-                        color[loop_x].A = 255; 
+                        color[loop_x] = new Color(0,0,0,0);
                     }
                 }
 
@@ -85,55 +81,6 @@ namespace SharedLibrary2D
 
                 return result;
             }
-
-        }
-
-        
-
-        static public (int,int,Point) createHitbox(string fileName, ContentManager content)
-        {
-            (int, int, Point) value;
-            
-            if (getHitbox.TryGetValue(fileName, out value))
-            {
-                return value;
-            }
-            else
-            {
-                Texture2D mask = content.Load<Texture2D>("hitbox2d/" + fileName);
-                bool firstPointFound = false;
-                Point firstpoint = new(0, 0);
-                Point lastpoint = new(0, 0);
-
-                Color[] color = new Color[mask.Height * mask.Width];
-                mask.GetData(color);
-                for (int loop_y = 0; loop_y < mask.Height; loop_y++)
-                {
-                    for (int loop_x = 0; loop_x < mask.Width; loop_x++)
-                    {
-                        Color currentPixel = color[loop_x + (loop_y * mask.Width)];
-                        string hexTest = currentPixel.ToString();
-                        if (hexTest.Equals(HitboxColor))
-                        {
-                            if (firstPointFound)
-                            {
-                                lastpoint = new Point(loop_x, loop_y);
-                            }
-                            else
-                            {
-                                firstpoint = new Point(loop_x, loop_y);
-                                firstPointFound = true;
-
-                            }
-                        }
-                    }
-                }
-                value = new(lastpoint.X - firstpoint.X, lastpoint.Y - firstpoint.Y, firstpoint);
-                getHitbox.Add(fileName, value);
-                return value;
-            }
-
-            
 
         }
     }
