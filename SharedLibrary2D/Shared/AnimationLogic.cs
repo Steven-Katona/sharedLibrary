@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary2D
 {
-    struct AnimationLogic
+    public struct AnimationLogic
     {
         Animation animation { get; set; }
         public Texture2D currentDrawnTexture { get; set; }
@@ -48,27 +48,30 @@ namespace SharedLibrary2D
 
         public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch, Vector2 position, Rectangle mySource, Vector2 center, float rotate, SpriteEffects _spriteEffects )
         {
-            if(currentDrawnTexture == null)
+            if (this.animation.frameTime != 0.0f) // by convention, if zero don't do frame logic
             {
-                throw new NotSupportedException("No animation is present at draw time!");
-            }
-
-            time += (float)_gameTime.ElapsedGameTime.TotalSeconds;
-
-            while (time > animation.frameTime)
-            {
-                if (animation.isLooping)
+                if (currentDrawnTexture == null)
                 {
-                    frameIndex = (frameIndex + 1) % (animation.myAnimation.Width / animation.myWidth);
+                    throw new NotSupportedException("No animation is present at draw time!");
                 }
-                else
-                {
-                    frameIndex = Math.Min((frameIndex + 1) % (animation.myAnimation.Width / animation.myWidth), (animation.myAnimation.Width / animation.myWidth - 1));
 
-                    if (frameIndex == animation.myAnimation.Width / animation.myWidth - 1)
-                    { animationEnd = true; }
+                time += (float)_gameTime.ElapsedGameTime.TotalSeconds;
+
+                while (time > animation.frameTime)
+                {
+                    if (animation.isLooping)
+                    {
+                        frameIndex = (frameIndex + 1) % (animation.myAnimation.Width / animation.myWidth);
+                    }
+                    else
+                    {
+                        frameIndex = Math.Min((frameIndex + 1) % (animation.myAnimation.Width / animation.myWidth), (animation.myAnimation.Width / animation.myWidth - 1));
+
+                        if (frameIndex == animation.myAnimation.Width / animation.myWidth - 1)
+                        { animationEnd = true; }
+                    }
+                    time = 0;
                 }
-                time = 0;
             }
 
             

@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,15 +15,19 @@ namespace SharedLibrary2D
 
     public class Hitbox : IDisposable
     {
-
+        
         public Rectangle myBounds;
+        Rectangle source;
         Texture2D drawnBox;
         public Point my_offset { get; }
+        public bool active { get; set; }
         
         public Hitbox(int x, int y, int width, int height, Point offset) 
         { 
             myBounds = new(x + offset.X, y + offset.Y, width, height);
             my_offset = offset;
+            active = true;
+            source = myBounds;
         }
 
         public ref Rectangle getBounds()
@@ -45,7 +51,7 @@ namespace SharedLibrary2D
         public void Draw(GameTime gameTime, SpriteBatch _spriteBatch, GraphicsDevice _graphics)
         {
 
-            if (drawnBox == null)
+            if (drawnBox == null && myBounds.Width > 0)
             {
                 Color[] box = new Color[myBounds.Width * myBounds.Height];
                 for (int loop_y = 0; loop_y < myBounds.Height; loop_y++)
@@ -68,15 +74,22 @@ namespace SharedLibrary2D
             }
 
 
+            if (drawnBox != null || active != false)
+            {
+                _spriteBatch.Draw(drawnBox, myBounds, Color.White);
 
-            _spriteBatch.Draw(drawnBox, myBounds, Color.White);
-            //_spriteBatch.Draw(drawnBox, new Vector2 (myBounds.X,myBounds.Y), myBounds, Color.White, 0.0f, myCenter, 1.0f, SpriteEffects.None, 0.9f);
+                //Texture2D a = _graphics.GetRenderTargets();
+                //_spriteBatch.Draw(drawnBox, new (myBounds.X,myBounds.Y), myBounds, new(0,0,0,255), 0.0f, new (0,0), 2.0f, SpriteEffects.None, 0.0f);
+            }
         }
+
+
 
 
         public void Dispose()
         {
-            
+            myBounds = new(0, 0, 0, 0);
+            active = false;
         }
     }
 }

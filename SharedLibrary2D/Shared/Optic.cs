@@ -6,7 +6,7 @@ namespace SharedLibrary2D
 {
     public class Optic
     {
-        Animation myVisual;
+        public Animation myVisual { get; set; }
         bool remove { get; set; }
         bool suprise { get; set; }
         bool is_dead { get; set; }
@@ -15,18 +15,35 @@ namespace SharedLibrary2D
         Rectangle drawnRectangle;
         Point myLocation;
         public Hitbox myAABB { get; set; }
-        AnimationLogic animator;
+        public AnimationLogic animator;
         public bool draw_me = true;
-        public Optic(Animation visual, Point myLocation)
+        public Optic(Animation visual, Point myLocation, int hitboxX, int hitboxY)
         {
             myVisual = visual;
             this.myLocation = myLocation;
 
-            myAABB = new(myLocation.X,myLocation.Y,visual.myWidth,visual.myHeight, new(-visual.myWidth/2,-visual.myHeight/2));
+            myAABB = new(myLocation.X,myLocation.Y, hitboxX, hitboxY, new(-hitboxX/2,-hitboxY/2));
             animator = new AnimationLogic();
             animator.animationPlay(myVisual);
             this.is_dead = false;
-            drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, 32, 32);
+            drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, myVisual.myWidth, myVisual.myHeight);
+        }
+
+        public void resizeVisual( int width, int height)
+        {
+            drawnRectangle = new Rectangle(getPosition().X, (int)getPosition().Y, width, height);
+        }
+
+        public Optic(Texture2D visual, Point myLocation, int hitboxX, int hitboxY)
+        {
+            myVisual = new Animation(visual, 0.0f, false, visual.Width, visual.Height);
+            this.myLocation = myLocation;
+
+            myAABB = new(myLocation.X, myLocation.Y, hitboxX, hitboxY, new(-hitboxX / 2, -hitboxY / 2));
+            animator = new AnimationLogic();
+            animator.animationPlay(myVisual);
+            this.is_dead = false;
+            drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, myVisual.myHeight, myVisual.myWidth);
         }
 
         public Point getPosition()

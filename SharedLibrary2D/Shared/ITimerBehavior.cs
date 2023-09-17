@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -12,8 +13,8 @@ namespace SharedLibrary2D
 {
     public interface ITimerBehavior
     {
-
-        bool implementAction(Action result, bool bool_result);
+        void implementAction(Action<int> result, int value);
         void Behave(Action Behavior);
+        public int reiterativeAction(Action action, int amount);
     }
 }

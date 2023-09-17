@@ -15,7 +15,9 @@ namespace SharedLibrary2D
     {
         static string folder;
         static readonly string AnimationColor = "{R:217 G:87 B:99 A:255}";
+        static readonly string HitBoxColor = "{R:63 G:63 B:116 A:255}";
         static Dictionary<string, Animation> getTextureArray;
+        
 
         public static void setFolder(string newFolder)
         {
@@ -30,6 +32,8 @@ namespace SharedLibrary2D
         {
             Animation result;
             Texture2D file;
+            Point start = new(0,0);
+            Point end = new(0,0);
 
             try
             {
@@ -57,6 +61,7 @@ namespace SharedLibrary2D
                 int newWidth = 0;
                 Color[] color = new Color[file.Width * file.Height];
                 file.GetData(color);
+
                 for(int loop_x = 0; loop_x < file.Width; loop_x++)
                 {
                     if (color[loop_x].ToString().Equals(AnimationColor))
@@ -77,6 +82,9 @@ namespace SharedLibrary2D
                     Texture2D frame = new(_graphicDevice, file.Width, file.Height);
                     frame.SetData(color);
                     result = new Animation(frame, frameTime, isLooping, newWidth, file.Height);
+                    result.hitBoxStart=start;
+                    result.hitBoxEnd=end;
+
                 }
 
                 return result;

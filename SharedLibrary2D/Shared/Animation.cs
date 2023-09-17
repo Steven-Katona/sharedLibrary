@@ -16,8 +16,10 @@ namespace SharedLibrary2D
         public int startFrame { get; set; }
         public int myHeight { get; set; }
         public int myWidth { get; set; }
+        public Point hitBoxStart { get; set; }
+        public Point hitBoxEnd { get; set; }
 
-        public Animation(Texture2D animationFrame, float frameTime, bool isLooping, int myHeight, int myWidth)
+        public Animation(Texture2D animationFrame, float frameTime, bool isLooping, int myWidth, int myHeight)
         {
             myAnimation = animationFrame;
             this.frameTime = frameTime;
