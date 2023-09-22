@@ -67,7 +67,8 @@ namespace SharedLibrary2D
                     if (color[loop_x].ToString().Equals(AnimationColor))
                     {
                         newWidth = loop_x + 1;
-                        color[loop_x] = new Color(0,0,0,0);
+                        Color b = new Color(color[loop_x-1], 0);
+                        color[loop_x] = b;
                     }
                 }
 

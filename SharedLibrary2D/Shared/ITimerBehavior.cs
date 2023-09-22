@@ -14,7 +14,7 @@ namespace SharedLibrary2D
     public interface ITimerBehavior
     {
         void implementAction(Action<int> result, int value);
-        void Behave(Action Behavior);
+        void simpleAction(Action action);
         public int reiterativeAction(Action action, int amount);
     }
 }

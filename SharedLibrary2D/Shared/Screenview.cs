@@ -16,10 +16,7 @@ namespace SharedLibrary2D
         private int zoneHeight;
         Point focus;
         Point transition;
-        Texture2D pointer;
-        Rectangle background;
-        Texture2D backgroundTexture;
-        public Screenview(Vector2 startingPosition,Point focus, int maxWidth, int maxHeight, int worldWidth, int worldHeight, Texture2D pointer)
+        public Screenview(Vector2 startingPosition,Point focus, int maxWidth, int maxHeight, int worldWidth, int worldHeight)
         {
             //focus.getPosition().X  
             offset_x_axis = maxWidth / 2;

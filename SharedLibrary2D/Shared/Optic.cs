@@ -2,30 +2,27 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
+
 namespace SharedLibrary2D
 {
-    public class Optic
+    public class Optic : Sprite
     {
         public Animation myVisual { get; set; }
-        bool remove { get; set; }
-        bool suprise { get; set; }
-        bool is_dead { get; set; }
-        float rotate { get; set; }
 
-        Rectangle drawnRectangle;
-        Point myLocation;
+
+        protected Rectangle drawnRectangle;
+  
         public Hitbox myAABB { get; set; }
         public AnimationLogic animator;
         public bool draw_me = true;
-        public Optic(Animation visual, Point myLocation, int hitboxX, int hitboxY)
+        public Optic(Animation visual, Point myLocation, int hitboxX, int hitboxY, float scale = 1f, float depth = 1f): base(visual.myAnimation, myLocation, scale, depth)
         {
             myVisual = visual;
-            this.myLocation = myLocation;
+            
 
             myAABB = new(myLocation.X,myLocation.Y, hitboxX, hitboxY, new(-hitboxX/2,-hitboxY/2));
             animator = new AnimationLogic();
             animator.animationPlay(myVisual);
-            this.is_dead = false;
             drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, myVisual.myWidth, myVisual.myHeight);
         }
 
@@ -34,34 +31,41 @@ namespace SharedLibrary2D
             drawnRectangle = new Rectangle(getPosition().X, (int)getPosition().Y, width, height);
         }
 
-        public Optic(Texture2D visual, Point myLocation, int hitboxX, int hitboxY)
+        public Optic(Texture2D visual, Point myLocation, int hitboxX, int hitboxY, float scale = 1f, float depth = 1f) : base(visual, myLocation)
         {
             myVisual = new Animation(visual, 0.0f, false, visual.Width, visual.Height);
-            this.myLocation = myLocation;
-
             myAABB = new(myLocation.X, myLocation.Y, hitboxX, hitboxY, new(-hitboxX / 2, -hitboxY / 2));
             animator = new AnimationLogic();
-            animator.animationPlay(myVisual);
-            this.is_dead = false;
+            animator.animationPlay(myVisual);;
             drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, myVisual.myHeight, myVisual.myWidth);
         }
 
-        public Point getPosition()
-        {
-            return myLocation;
-        }
 
-        public void setToRemove()
-        {
-            remove = true;
-        }
 
-        public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch)
+        public new void Draw(GameTime _gameTime, SpriteBatch _spriteBatch)
         {
 
             if (myVisual.myAnimation != null)
             {
-                animator.Draw(_gameTime, _spriteBatch, new(getPosition().X, getPosition().Y), drawnRectangle, new Vector2(myVisual.myHeight / 2, myVisual.myHeight / 2), rotate, SpriteEffects.None);
+                animator.Draw(
+
+                    _gameTime, 
+                    
+                    _spriteBatch, 
+                    
+                    new Vector2(getPosition().X, getPosition().Y), 
+                    
+                    drawnRectangle, 
+                    
+                    rotation, 
+                    
+                    new Vector2(myVisual.myWidth / 2, myVisual.myHeight / 2), 
+                    
+                    scale,
+                    
+                    SpriteEffects.None, 
+                    
+                    layerDepth);
             }
             else
             {
@@ -69,27 +73,28 @@ namespace SharedLibrary2D
             }
         }
 
-        public Point getVector()
-        {
-            return myLocation;
-        }
 
-        public static Optic operator +(Optic myOpticPosition, (int, int) newPosition) 
+        public static Optic operator +(Optic myOpticPosition, (int, int) newPosition)
         {
-            myOpticPosition.myLocation.X += newPosition.Item1;
-            myOpticPosition.myLocation.Y += newPosition.Item2;
+            _ = (Sprite)myOpticPosition + newPosition;
             myOpticPosition.myAABB.getBounds().X += newPosition.Item1;
             myOpticPosition.myAABB.getBounds().Y += newPosition.Item2;
 
             return myOpticPosition;
-        
         }
-        
-        
-        
-        
-        
 
-        
+        public new void setPosition(Point newLocation)
+        {
+            base.setPosition(newLocation);
+            myAABB.myBounds = new (newLocation.X, newLocation.Y, myAABB.myBounds.Width, myAABB.myBounds.Height);
+        }
+
+
+
+
+
+
+
+
     }
 }

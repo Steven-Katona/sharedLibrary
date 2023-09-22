@@ -14,7 +14,6 @@ namespace SharedLibrary2D
         public Texture2D currentDrawnTexture { get; set; }
         private int frameIndex;
         private float time;
-        private float draw_priority;
         private bool animationEnd;
         Point offset;
 
@@ -38,15 +37,9 @@ namespace SharedLibrary2D
 
         }
 
-        public void setDrawPriority(float value)
-        {
-            draw_priority = value;
-        }
-
-
         public void setOffset(Point offset) { this.offset = offset; }
 
-        public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch, Vector2 position, Rectangle mySource, Vector2 center, float rotate, SpriteEffects _spriteEffects )
+        public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch, Vector2 position, Rectangle mySource,float rotate, Vector2 center , float scale, SpriteEffects _spriteEffects, float layerDepth)
         {
             if (this.animation.frameTime != 0.0f) // by convention, if zero don't do frame logic
             {
@@ -78,7 +71,25 @@ namespace SharedLibrary2D
             
 
             Rectangle source = new(animation.myWidth * frameIndex, 0, animation.myWidth, animation.myHeight);
-            _spriteBatch.Draw(currentDrawnTexture, new Rectangle((int)position.X + offset.X, (int)position.Y + offset.Y, mySource.Width, mySource.Height), source, Color.White, rotate, center,_spriteEffects,draw_priority);
+            _spriteBatch.Draw(
+                
+                currentDrawnTexture, 
+                
+                position,
+                
+                source,
+                
+                Color.White, 
+                
+                rotate,
+                
+                center,
+
+                scale,
+                
+                _spriteEffects,
+                
+                layerDepth);
   
         }
 
