@@ -16,15 +16,13 @@ namespace SharedLibrary2D
         private int zoneHeight;
         Point focus;
         Point transition;
-        public Screenview(Vector2 startingPosition,Point focus, int maxWidth, int maxHeight, int worldWidth, int worldHeight)
+        public Screenview(int maxWidth, int maxHeight, int worldWidth, int worldHeight)
         {
             //focus.getPosition().X  
             offset_x_axis = maxWidth / 2;
             offset_y_axis = maxHeight / 2;
             zoneWidth = worldWidth;
             zoneHeight = worldHeight;
-            this.startingPosition = startingPosition;
-            this.focus = focus;
             transition = new(0, 0);
             
 

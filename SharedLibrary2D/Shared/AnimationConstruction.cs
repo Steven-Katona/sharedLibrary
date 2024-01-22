@@ -13,16 +13,12 @@ namespace SharedLibrary2D
 { 
     static public class AnimationConstruction
     {
-        static string folder;
         static readonly string AnimationColor = "{R:217 G:87 B:99 A:255}";
         static readonly string HitBoxColor = "{R:63 G:63 B:116 A:255}";
         static Dictionary<string, Animation> getTextureArray;
         
 
-        public static void setFolder(string newFolder)
-        {
-            folder = newFolder;
-        }
+        
         static public void Initilize()
         {
             getTextureArray = new Dictionary<string, Animation> { };
@@ -37,14 +33,7 @@ namespace SharedLibrary2D
 
             try
             {
-                if (!folder.Equals(""))
-                {
-                    file = content.Load<Texture2D>(folder + "/" + fileName);
-                }
-                else
-                {
-                    file = content.Load<Texture2D>(fileName);
-                }
+                file = content.Load<Texture2D>(fileName);
             }
             catch (Exception ex) 
             {
