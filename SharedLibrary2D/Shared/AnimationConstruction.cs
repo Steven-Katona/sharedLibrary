@@ -39,6 +39,7 @@ namespace SharedLibrary2D
             {
                 file = null;
                 string error = ex.ToString() + " \"bad file name, or bad file path!\"";
+                throw;
             }
 
             if(getTextureArray.TryGetValue(fileName, out result))

@@ -17,7 +17,7 @@ namespace SharedLibrary2D
         public float scale { get; set; }
         public float rotation { get; set; }
         public float layerDepth { get; set; }
-        Point myLocation;
+        protected Point myLocation;
         public Texture2D myFace { get; set; }
 
         int pixelmoveCountX = 0;
@@ -63,6 +63,7 @@ namespace SharedLibrary2D
             remove = true;
         }
 
+        
         
 
         public static Sprite operator +(Sprite mySpritePosition, (int, int) newPosition)

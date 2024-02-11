@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.ComponentModel;
 
 namespace SharedLibrary2D
 {
@@ -14,47 +16,49 @@ namespace SharedLibrary2D
         public void curryBehavior(string s)
         {
             string[] a = s.Split(" ");
-            for (int i = 0; i < a.Length; i++)
+            for (int i = 0; i < a.Length -1 ; i++)
             {
                 string token = a[i];
-                string endToken = a[i + 1];
                 int endingIndex = i + 1;
-                for (int j = i + 1; !a[i].Equals(a[j]); j++)
+
+                do
                 {
                     try
                     {
-                        endToken = a[j];
-                        endingIndex = j;
+                        endingIndex++;
                     }
                     catch (IndexOutOfRangeException e)
                     {
-                        System.Console.WriteLine(e.ToString() + " j:" + j + "/// a.Length:" + a.Length);
+                        System.Console.WriteLine(e.ToString() + " endingIndex:" + endingIndex + "/// a.Length:" + a.Length);
                         throw;
                     }
-                }
+                } while ((!a[i].Equals(a[endingIndex])));
 
-                decipherToken(a[i], a[(i + 1)..(endingIndex - 1)]);
+
+                string[] buff = a[(i += 1)..(endingIndex)];
+              
+                decipherToken(token, buff);
                 i = endingIndex;
             }
         }
 
         public void decipherToken(string s, string[] p)
         {
-
-            Action<string[]> func = (p) =>
+            try
             {
-                try
-                {
-                    MethodInfo m = this.GetType().GetMethod(s);
-                    m.Invoke(this, p);
-                }
-                catch (Exception ex) 
-                {
-                    System.Console.WriteLine(ex.ToString() + " issue concerning method named " + s);
-                    
-                }
-            };
+                //MethodInfo m = 
+                GetType().GetMethod(s).Invoke(this, new object[] {p});
+                //m.Invoke(this, p);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.ToString() + " issue concerning method named " + s);
+                throw;
+            }
         }
+
+        public abstract Animation getAnimation(string x);
+        public abstract string getLevel(string s);
 
         
     }
