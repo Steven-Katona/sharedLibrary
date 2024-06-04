@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SharedLibrary2D")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+533159464b554c3871e0ad6a6f2d491a7a3ae7da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99463b562abca818eb4211ba68a6c43c352c2910")]
 [assembly: System.Reflection.AssemblyProductAttribute("SharedLibrary2D")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SharedLibrary2D")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

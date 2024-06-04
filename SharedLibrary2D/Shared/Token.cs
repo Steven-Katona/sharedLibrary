@@ -6,16 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SharedLibrary2D
 {
-  
+   
     public abstract class Token
     {
-
-        public void curryBehavior(string s)
+        List<Optic> returnme;
+        public void curryBehavior(string s/*, out List<Optic> returnme */)
         {
             string[] a = s.Split(" ");
+            for(int x = 0; x < a.Length; x++)
+            {
+                a[x] = a[x].Replace("\r\n", string.Empty);
+            }
             for (int i = 0; i < a.Length -1 ; i++)
             {
                 string token = a[i];
@@ -25,6 +30,8 @@ namespace SharedLibrary2D
                 {
                     try
                     {
+                        string zero = a[i];
+                        string thirteen = a[endingIndex];
                         endingIndex++;
                     }
                     catch (IndexOutOfRangeException e)
@@ -32,7 +39,7 @@ namespace SharedLibrary2D
                         System.Console.WriteLine(e.ToString() + " endingIndex:" + endingIndex + "/// a.Length:" + a.Length);
                         throw;
                     }
-                } while ((!a[i].Equals(a[endingIndex])));
+                } while ( !a[i].Equals(a[endingIndex]) );
 
 
                 string[] buff = a[(i += 1)..(endingIndex)];
@@ -46,19 +53,16 @@ namespace SharedLibrary2D
         {
             try
             {
-                //MethodInfo m = 
                 GetType().GetMethod(s).Invoke(this, new object[] {p});
-                //m.Invoke(this, p);
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
-                System.Console.WriteLine(ex.ToString() + " issue concerning method named " + s);
+                Debug.WriteLine(ex.ToString() + " issue concerning method named " + s);
                 throw;
             }
         }
 
         public abstract Animation getAnimation(string x);
-        public abstract string getLevel(string s);
 
         
     }

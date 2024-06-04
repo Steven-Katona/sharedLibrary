@@ -10,55 +10,93 @@ namespace SharedLibrary2D
 {
     public class Background
     {
-        Rectangle targetView;
         List<Optic> BackgroundObjects;
         int mySpeed;
         Optic spr;
-        Point Startingpoint;
-        int endingP;
-        float scaleUp;
-        public Background(Optic back, int speed, int startingSlides, int screenHeight) 
-        {
-            spr = back;
-            spr.layerDepth = 10f;
-            scaleUp = screenHeight / back.myFace.Height;
-            _ = back.getPosition().X;
-            mySpeed = speed;
-            BackgroundObjects = new List<Optic>();
-            for(int i = 0; i <= startingSlides; i++)
-            {
-                BackgroundObjects.Add(new Optic(spr.myVisual, spr.getPosition(),0,0,scaleUp + 1f));
-                spr.setPosition( new(spr.getPosition().X,spr.getPosition().Y - spr.myFace.Height * (int)scaleUp));
+        Viewport gameView;
 
-            }
-            endingP = (BackgroundObjects.Count-1) * (screenHeight + (spr.myFace.Height * (int)scaleUp) / 2);
+        enum Scroll : ushort { up = 0, down = 1, left = 2, right = 3};
+        Scroll myScroll; 
+        enum Status : ushort { staticB = 0, movingB = 1, loopingB = 2};
+        Status myStatus;
+
+
+        internal delegate void behaviorSwitch(int v);
+        behaviorSwitch activeDelegate;
+
+        public Background(Optic sprawl, Tuple<int, int, int> startingConfiguration, int offset = 0, int option = 0) 
+        {
+            spr = sprawl;
+            changeStatus(startingConfiguration.Item1);
+            changeScroll(startingConfiguration.Item2);
+            changeSpeed(startingConfiguration.Item3);
         }
 
+        public Background(Optic sprawl)
+        {
+            spr = sprawl;
+            myStatus = Status.staticB;
+        }
 
+        internal void changeBehavior(int option)
+        {
+            switch(option)
+            {
+                case 0:
+                    activeDelegate = changeScroll;
+                    break;
+                case 1:
+                    activeDelegate = changeStatus;
+                    break;
+                case 2:
+                    activeDelegate = changeSpeed;
+                    break;
+            }
+        }
 
+        public void changeScroll(int v)
+        {
+            try
+            {
+                myScroll = (Scroll)v;
+            }
+            catch (Exception e) { throw; }
+        }
+
+        public void changeStatus(int v) 
+        {
+            try
+            {
+                myStatus = (Status)v;
+            }
+            catch (Exception e) { throw; }
+        }
+
+        public void changeSpeed(int v) 
+        {
+            mySpeed = v;
+        }
+
+        public void nextBehavior()
+        {
+
+        }
+
+        public void destinationPointReaced()
+        {
+
+        }
 
         public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch)
-        {
-            
-            for(int i = 0; i < BackgroundObjects.Count; i++)
-            {
+        { 
 
-                _ = BackgroundObjects[i] + (0, mySpeed);
-                BackgroundObjects[i].Draw(_gameTime, _spriteBatch);
-
-                if (BackgroundObjects[i].getPosition().Y > endingP)
-                {
-                    _ = BackgroundObjects[i]  + (0,-1800);
-                }
-            }
+            spr.Draw(_gameTime, _spriteBatch);
             
         }
-
-        
 
         public void Update(GameTime _gameTime)
         {
-
+           
         }
     }
 }

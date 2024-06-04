@@ -18,6 +18,8 @@ namespace SharedLibrary2D
         public float rotation { get; set; }
         public float layerDepth { get; set; }
         protected Point myLocation;
+        protected Point goingLocation { get; set; }
+        protected int step { get; set; }
         public Texture2D myFace { get; set; }
 
         int pixelmoveCountX = 0;
@@ -27,7 +29,8 @@ namespace SharedLibrary2D
             this.layerDepth = depth;
             this.scale = scale;
             this.myFace = visual;
-            this.myLocation = myLocation;  
+            this.myLocation = myLocation;
+            step = 1;
         }
 
         public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch)
@@ -74,6 +77,15 @@ namespace SharedLibrary2D
             return mySpritePosition;
         }
 
+        public static Sprite operator +(Sprite mySpritePosition, Point newPosition)
+        {
+            mySpritePosition.myLocation.X += newPosition.X;
+            mySpritePosition.myLocation.Y += newPosition.Y;
+
+            return mySpritePosition;
+        }
+
         public Action<Sprite, (int, int)> basicMove = (Sprite spr, (int, int) move) => { spr.pixelmoveCountX += Math.Abs(move.Item1); spr.pixelmoveCountY += Math.Abs(move.Item2);  _ = spr + move; };
+        public Action<Sprite, Point> pointMove = (Sprite spr, Point move) => { spr.pixelmoveCountX += Math.Abs(move.X); spr.pixelmoveCountY += Math.Abs(move.Y); _ = spr + move; };
     }
 }

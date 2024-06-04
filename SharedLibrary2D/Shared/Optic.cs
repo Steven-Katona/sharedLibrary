@@ -83,18 +83,22 @@ namespace SharedLibrary2D
             return myOpticPosition;
         }
 
+        public static Optic operator +(Optic myOpticPosition, Point newPosition)
+        {
+            int X = newPosition.X;
+            int Y = newPosition.Y;
+
+            myOpticPosition.myAABB.getBounds().X += newPosition.X;
+            myOpticPosition.myAABB.getBounds().Y += newPosition.Y;
+
+            return myOpticPosition;
+        }
+
         public new void setPosition(Point newLocation)
         {
             base.setPosition(newLocation);
             myAABB.myBounds = new (newLocation.X, newLocation.Y, myAABB.myBounds.Width, myAABB.myBounds.Height);
         }
-
-
-
-
-
-
-
 
     }
 }
