@@ -14,11 +14,11 @@ namespace SharedLibrary2D
     static public class AnimationConstruction
     {
         static readonly string AnimationColor = "{R:217 G:87 B:99 A:255}";
-        static readonly string HitBoxColor = "{R:63 G:63 B:116 A:255}";
+        //static readonly string HitBoxColor = "{R:63 G:63 B:116 A:255}";
         static Dictionary<string, Animation> getTextureArray;
-        
 
-        
+
+
         static public void Initilize()
         {
             getTextureArray = new Dictionary<string, Animation> { };
@@ -28,21 +28,21 @@ namespace SharedLibrary2D
         {
             Animation result;
             Texture2D file;
-            Point start = new(0,0);
-            Point end = new(0,0);
+            Point start = new(0, 0);
+            Point end = new(0, 0);
 
             try
             {
                 file = content.Load<Texture2D>(fileName);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 file = null;
                 string error = ex.ToString() + " \"bad file name, or bad file path!\"";
                 throw;
             }
 
-            if(getTextureArray.TryGetValue(fileName, out result))
+            if (getTextureArray.TryGetValue(fileName, out result))
             {
                 return result;
             }
@@ -52,32 +52,33 @@ namespace SharedLibrary2D
                 Color[] color = new Color[file.Width * file.Height];
                 file.GetData(color);
 
-                for(int loop_x = 0; loop_x < file.Width; loop_x++)
+                for (int loop_x = 0; loop_x < file.Width; loop_x++)
                 {
                     if (color[loop_x].ToString().Equals(AnimationColor))
                     {
                         newWidth = loop_x + 1;
-                        Color b = new Color(color[loop_x-1], 0);
+                        Color b = new Color(color[loop_x - 1], 0);
                         color[loop_x] = b;
                     }
                 }
 
-                
+
 
                 if (newWidth == 0)
                 {
-                    result = new Animation(file, frameTime, isLooping, file.Width ,file.Height);
+                    result = new Animation(file, frameTime, isLooping, file.Width, file.Height);
                 }
-                else 
+                else
                 {
                     Texture2D frame = new(_graphicDevice, file.Width, file.Height);
                     frame.SetData(color);
                     result = new Animation(frame, frameTime, isLooping, newWidth, file.Height);
-                    result.hitBoxStart=start;
-                    result.hitBoxEnd=end;
+                    result.hitBoxStart = start;
+                    result.hitBoxEnd = end;
 
                 }
 
+                getTextureArray.Add(fileName, result); // comment this out if weird shit happens
                 return result;
             }
 
