@@ -7,6 +7,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SharedLibrary2D
 {
@@ -40,7 +41,7 @@ namespace SharedLibrary2D
                 new Rectangle(0, 0, myFace.Width, myFace.Height), //Source Rectangle!
                 Color.White,
                 rotation,
-                new Vector2(myFace.Width/2,myFace.Height/2), //origin (Center?) !
+                new Vector2(myFace.Width/2,myFace.Height/2), //origin (Center?) ! new Vector2(myFace.Width/2,myFace.Height/2)
                 scale,
                 SpriteEffects.None,
                 layerDepth);
@@ -86,6 +87,7 @@ namespace SharedLibrary2D
         }
 
         public Action<Sprite, (int, int)> basicMove = (Sprite spr, (int, int) move) => { spr.pixelmoveCountX += Math.Abs(move.Item1); spr.pixelmoveCountY += Math.Abs(move.Item2);  _ = spr + move; };
+       
         public Action<Sprite, Point> pointMove = (Sprite spr, Point move) => { spr.pixelmoveCountX += Math.Abs(move.X); spr.pixelmoveCountY += Math.Abs(move.Y); _ = spr + move; };
     }
 }

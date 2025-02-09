@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
 using System.Diagnostics;
+using Microsoft.Xna.Framework;
 
 namespace SharedLibrary2D
 {
@@ -63,6 +64,7 @@ namespace SharedLibrary2D
         }
 
         public abstract Animation getAnimation(string x);
+        public abstract void Update(GameTime gameTime);
 
         
     }

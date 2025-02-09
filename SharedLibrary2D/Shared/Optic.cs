@@ -15,6 +15,7 @@ namespace SharedLibrary2D
         public Hitbox myAABB { get; set; }
         public AnimationLogic animator;
         public bool draw_me = true;
+        public Vector2 direction;
         public Optic(Animation visual, Point myLocation, int hitboxX, int hitboxY, float scale = 1f, float depth = 1f): base(visual.myAnimation, myLocation, scale, depth)
         {
             myVisual = visual;
