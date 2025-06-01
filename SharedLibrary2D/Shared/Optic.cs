@@ -24,7 +24,7 @@ namespace SharedLibrary2D
             myAABB = new(myLocation.X,myLocation.Y, hitboxX, hitboxY, new(-hitboxX/2,-hitboxY/2));
             animator = new AnimationLogic();
             animator.animationPlay(myVisual);
-            drawnRectangle = new((int)getPosition().X, (int)getPosition().Y, myVisual.myWidth, myVisual.myHeight);
+            drawnRectangle = new((int)(getPosition().X), (int)(getPosition().Y), (int)(myVisual.myWidth), (int)(myVisual.myHeight));
         }
 
         public void resizeVisual( int width, int height)

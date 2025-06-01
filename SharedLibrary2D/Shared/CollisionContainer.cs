@@ -7,18 +7,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SharedLibrary2D.Shared
+namespace SharedLibrary2D
 {
-    static public class Collision
+    static public class CollisionContainer
     {
-        
-        public static bool RectRect(Rectangle r1, Rectangle r2)
+        static CollisionTree collisionTree;
+        struct node
         {
-            if (r1.Intersects(r2))
-                return true;
-            else
-                return false;
+            Hitbox hitbox;
+            public int id;
+            CollisionTree myTree;
         }
+
 
         
 

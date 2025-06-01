@@ -37,7 +37,7 @@ namespace SharedLibrary2D
                     }
                     catch (IndexOutOfRangeException e)
                     {
-                        System.Console.WriteLine(e.ToString() + " endingIndex:" + endingIndex + "/// a.Length:" + a.Length);
+                        Debug.WriteLine(e.ToString() + " endingIndex:" + endingIndex + "/// a.Length:" + a.Length);
                         throw;
                     }
                 } while ( !a[i].Equals(a[endingIndex]) );

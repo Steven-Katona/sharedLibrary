@@ -12,7 +12,7 @@ namespace SharedLibrary2D.Shared
 {
     internal abstract class Bag
     {
-        Token tokens;
+        Token my_token;
         public Screenview gameplayScreen;
         List<Optic> backgroundTiles;
 
@@ -32,12 +32,12 @@ namespace SharedLibrary2D.Shared
         {
             StreamReader sr = new StreamReader("Content/Levels/" + filename + ".txt");
             string x = sr.ReadToEnd();
-            tokens.curryBehavior(x);
+            my_token.curryBehavior(x);
         }
 
         public void Update(GameTime _gameTime)
         {
-            tokens.Update(_gameTime);
+            my_token.Update(_gameTime);
         }
         
 

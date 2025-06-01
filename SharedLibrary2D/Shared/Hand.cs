@@ -14,7 +14,7 @@ namespace SharedLibrary2D.Shared
     internal abstract class Hand 
     {
         string mySaveFile;
-        Bag bag;
+        Bag my_bag;
         bool inMenu;
         public abstract void loadGame(string saveFile);
         public abstract void saveGame();
@@ -23,12 +23,12 @@ namespace SharedLibrary2D.Shared
 
         public Matrix getlevelcameraOffset()
         {
-            return bag.gameplayScreen.getOffsetTransformation();
+            return my_bag.gameplayScreen.getOffsetTransformation();
         }
 
         public void Update(GameTime gameTime)
         {
-            bag.Update(gameTime);
+            my_bag.Update(gameTime);
         }
 
         public void Draw(GameTime _gameTime, SpriteBatch _spriteBatch)
@@ -39,7 +39,7 @@ namespace SharedLibrary2D.Shared
             }
             else
             {
-                bag.Draw(_gameTime, _spriteBatch);
+                my_bag.Draw(_gameTime, _spriteBatch);
             }
         }
 
